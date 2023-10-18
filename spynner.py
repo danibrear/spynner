@@ -34,6 +34,7 @@ screen_height = window.winfo_screenheight()
 window.title('Spinner')
 window.geometry('{}x{}+{}+{}'.format(GIF_SIZE//SHRINK, GIF_SIZE//SHRINK, screen_width//2-OFFSET, screen_height//2-OFFSET))
 label = tk.Label(window)
+window.resizable(False, False)
 
 label.pack()
 window.after(0, update, 0)
