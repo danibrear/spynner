@@ -7,6 +7,38 @@ frames = []
 
 window.attributes('-topmost', True)
 window.wm_attributes('-type', 'dock')
+window.attributes('-alpha', 0.9)
+window.tk.call('wm', 'overrideredirect', window, True)
+
+close = tk.Label(window, text="×", fg="white", bg="#252525", font="Helvetica 12 bold")
+close.pack(side="bottom", fill="x", pady=1)
+close.bind('<Button-1>', lambda e: window.destroy())
+
+windowX = 0
+windowY = 0
+
+def startmove(event):
+    global windowX, windowY
+    windowX = event.x
+    windowY = event.y
+
+def stopmove(event):
+    global windowX, windowY
+    windowX = None
+    windowY = None
+
+def domove(event):
+    global windowX, windowY
+    deltax = event.x - windowX
+    deltay = event.y - windowY
+    x = window.winfo_x() + deltax
+    y = window.winfo_y() + deltay
+    window.geometry("+%s+%s" % (x, y))
+
+window.bind('<ButtonPress-1>', startmove)
+window.bind('<ButtonRelease-1>', stopmove)
+window.bind('<B1-Motion>', domove)
+
 
 GIF_SIZE = 200
 SHRINK = 3
@@ -32,7 +64,7 @@ screen_width = window.winfo_screenwidth()
 screen_height = window.winfo_screenheight()
 
 window.title('Spinner')
-window.geometry('{}x{}+{}+{}'.format(GIF_SIZE//SHRINK, GIF_SIZE//SHRINK, screen_width//2-OFFSET, screen_height//2-OFFSET))
+window.geometry('{}x{}+{}+{}'.format(GIF_SIZE//SHRINK, GIF_SIZE//SHRINK + 20, screen_width//2-OFFSET, screen_height//2-OFFSET))
 label = tk.Label(window)
 window.resizable(False, False)
 
