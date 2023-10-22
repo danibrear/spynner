@@ -5,10 +5,11 @@ window = tk.Tk()
 frameCnt = 31
 frames = []
 
-window.attributes('-topmost', True)
+
 window.wm_attributes('-type', 'dock')
 window.attributes('-alpha', 0.9)
 window.tk.call('wm', 'overrideredirect', window, True)
+window.attributes('-topmost', True)
 
 close = tk.Label(window, text="×", fg="white", bg="#252525", font="Helvetica 12 bold")
 close.pack(side="bottom", fill="x", pady=1)
